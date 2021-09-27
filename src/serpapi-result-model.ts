@@ -21,7 +21,7 @@ interface Pagination {
   other_pages: any;
 }
 
-interface ShoppingResult {
+export interface ShoppingResult {
   position: number;
   title: string;
   link: string;

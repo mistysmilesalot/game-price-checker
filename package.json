@@ -4,7 +4,9 @@
   "description": "Collect SERP information for list of board games",
   "main": "bin/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "style": "prettier --write --single-quote src/*.ts bin/index.js",
+    "start": "ts-node ."
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +16,8 @@
   "dependencies": {
     "csv-reader": "^1.0.8",
     "csv-writer": "^1.6.0",
-    "google-search-results-nodejs": "^2.0.1"
+    "google-search-results-nodejs": "^2.0.1",
+    "prettier": "^2.4.1"
   },
   "devDependencies": {
     "@types/node": "^16.9.6",

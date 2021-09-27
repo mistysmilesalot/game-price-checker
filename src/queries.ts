@@ -773,4 +773,4 @@ const Queries = [
   'Query',
 ];
 
-module.exports =Queries
+module.exports = Queries;

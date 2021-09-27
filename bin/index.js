@@ -1,7 +1,11 @@
 #!/usr/bin/env node
-const queries = require("../src/queries.ts");
-const getExisingData = require("../src/getExistingData.ts")
+const queries = require('../src/queries.ts');
+const getExisingData = require('../src/getExistingData.ts');
 
-const existingData = getExisingData()
+async function main() {
+  const existingData = await getExisingData();
 
-console.log(existingData)
+  console.log(existingData)
+}
+
+main();
