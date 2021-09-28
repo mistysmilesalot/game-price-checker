@@ -1,5 +1,5 @@
 import { TableData } from './serpapi-result-model'
-import {createObjectCsvWriter} from 'csv-writer'
+import { createObjectCsvWriter } from 'csv-writer'
 
 const CsvHeaderConfig = [
   { id: 'input', title: 'Input' },
