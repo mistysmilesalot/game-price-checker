@@ -1,4 +1,4 @@
-export interface SerpApiResults {
+export interface SerpApiResult {
   search_metadata: SearchMetadata;
   search_parameters: SearchParameters;
   search_information: SearchInformation;
@@ -6,19 +6,6 @@ export interface SerpApiResults {
   shopping_results: ShoppingResult[];
   pagination: Pagination;
   serpapi_pagination: SerpapiPagination;
-}
-
-interface SerpapiPagination {
-  current: number;
-  next_link: string;
-  next: string;
-  other_pages: any;
-}
-
-interface Pagination {
-  current: number;
-  next: string;
-  other_pages: any;
 }
 
 export interface ShoppingResult {
@@ -35,6 +22,32 @@ export interface ShoppingResult {
   reviews?: number;
   thumbnail: string;
   tag?: string;
+}
+
+export interface TableDataRow {
+  input: string;
+  quantity: number;
+  title: string;
+  source: string;
+  price: string;
+  extracted_price: number;
+  thumbnail: string;
+  link: string;
+}
+
+export type TableData = TableDataRow[];
+
+interface SerpapiPagination {
+  current: number;
+  next_link: string;
+  next: string;
+  other_pages: any;
+}
+
+interface Pagination {
+  current: number;
+  next: string;
+  other_pages: any;
 }
 
 interface Filter {

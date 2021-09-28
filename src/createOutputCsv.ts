@@ -1,10 +1,10 @@
-import { SerpApiResults } from './serpapi-result-model';
+import { TableData } from './serpapi-result-model';
 
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const CsvHeaderConfig = [
-  { id: 'q', title: 'Input' },
-  { id: 'position', title: 'Position' },
+  { id: 'input', title: 'Input' },
+  { id: 'quantity', title: 'Qty' },
   { id: 'title', title: 'Title' },
   { id: 'source', title: 'Source' },
   { id: 'price', title: 'Price' },
@@ -13,9 +13,8 @@ const CsvHeaderConfig = [
   { id: 'link', title: 'Link' },
 ];
 
-export default function createOutputCsv(results: SerpApiResults) {
-  const mappedData = results.shopping_results.map((r: { thumbnail: any }) => ({
-    q: results.search_parameters.q,
+module.exports = (data: TableData) => {
+  const mappedData = data.map((r) => ({
     ...r,
     thumbnail: `=IMAGE("${r.thumbnail}")`,
   }));
@@ -28,4 +27,4 @@ export default function createOutputCsv(results: SerpApiResults) {
   csvWriter
     .writeRecords(mappedData)
     .then(() => console.log('The CSV file was written successfully'));
-}
+};

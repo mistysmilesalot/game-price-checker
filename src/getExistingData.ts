@@ -1,15 +1,11 @@
-import { ShoppingResult } from './serpapi-result-model';
+import { TableData, TableDataRow } from './serpapi-result-model';
 
 var fs = require('fs');
 const CsvReadableStream = require('csv-reader');
 
-interface RowData extends ShoppingResult {
-  input: string;
-}
-
 enum Columns {
   input,
-  position,
+  quantity,
   title,
   source,
   price,
@@ -24,11 +20,11 @@ function extractThumbnailUrl(s: string) {
   return arr[1];
 }
 
-module.exports = async (): Promise<RowData[]> => {
+module.exports = async (): Promise<TableData> => {
   return new Promise((resolve, reject) => {
     let inputStream = fs.createReadStream('./src/data.csv', 'utf8');
 
-    const data: RowData[] = [];
+    const data: TableDataRow[] = [];
 
     inputStream
       .pipe(
@@ -42,11 +38,11 @@ module.exports = async (): Promise<RowData[]> => {
       .on('data', function (row: string[]) {
         data.push({
           input: row[Columns.input],
-          position: parseInt(row[Columns.position]),
+          quantity: parseInt(row[Columns.quantity]) || 1,
           title: row[Columns.title],
           source: row[Columns.source],
           price: row[Columns.price],
-          extracted_price: parseInt(row[Columns.extractedPrice]),
+          extracted_price: parseFloat(row[Columns.extractedPrice]),
           thumbnail: extractThumbnailUrl(row[Columns.thumbnail]),
           link: row[Columns.link],
         });

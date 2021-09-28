@@ -1,3 +1,5 @@
+import { SerpApiResult, TableData } from './serpapi-result-model';
+
 const SerpApi = require('google-search-results-nodejs');
 
 const params = {
@@ -11,12 +13,16 @@ const params = {
   num: '10',
 };
 
-export default function scrapeData(query) {
+export default function scrapeData(query: string): TableData {
   const search = new SerpApi.GoogleSearch(
     '715ab46631bc7b0405bae21506ae2028d556f6c70561f0efc8d32087e73776db'
   );
 
-  return search.json({ ...params, q: query }, (result) => {
-    return result;
+  return search.json({ ...params, q: query }, (result: SerpApiResult) => {
+    return {
+      ...result.shopping_results[0],
+      input: result.search_parameters.q,
+      quantity: 1,
+    };
   });
 }
