@@ -1,7 +1,6 @@
-import { TableData, TableDataRow } from './serpapi-result-model';
-
-var fs = require('fs');
-const CsvReadableStream = require('csv-reader');
+import fs from 'fs'
+import CsvReadableStream from 'csv-reader'
+import { TableData, TableDataRow } from './serpapi-result-model'
 
 enum Columns {
   input,
@@ -15,16 +14,16 @@ enum Columns {
 }
 
 function extractThumbnailUrl(s: string) {
-  var rx = /=IMAGE\("(.*)"\)/;
-  var arr = rx.exec(s) || [s, s];
-  return arr[1];
+  var rx = /=IMAGE\("(.*)"\)/
+  var arr = rx.exec(s) || [s, s]
+  return arr[1]
 }
 
 module.exports = async (): Promise<TableData> => {
   return new Promise((resolve, reject) => {
-    let inputStream = fs.createReadStream('./src/data.csv', 'utf8');
+    let inputStream = fs.createReadStream('./src/data.csv', 'utf8')
 
-    const data: TableDataRow[] = [];
+    const data: TableDataRow[] = []
 
     inputStream
       .pipe(
@@ -45,9 +44,9 @@ module.exports = async (): Promise<TableData> => {
           extracted_price: parseFloat(row[Columns.extractedPrice]),
           thumbnail: extractThumbnailUrl(row[Columns.thumbnail]),
           link: row[Columns.link],
-        });
+        })
       })
       .on('end', () => resolve(data))
-      .on('error', (error: string) => reject(error));
-  });
-};
+      .on('error', (error: string) => reject(error.toString()))
+  })
+}

@@ -1,6 +1,5 @@
-import { TableData } from './serpapi-result-model';
-
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+import { TableData } from './serpapi-result-model'
+import {createObjectCsvWriter} from 'csv-writer'
 
 const CsvHeaderConfig = [
   { id: 'input', title: 'Input' },
@@ -11,20 +10,19 @@ const CsvHeaderConfig = [
   { id: 'extracted_price', title: 'Extracted Price' },
   { id: 'thumbnail', title: 'Thumbnail' },
   { id: 'link', title: 'Link' },
-];
+]
 
 module.exports = (data: TableData) => {
-  const mappedData = data.map((r) => ({
-    ...r,
-    thumbnail: `=IMAGE("${r.thumbnail}")`,
-  }));
+  const mappedData = data
+    .filter((r) => !!r && !!r.title)
+    .map((r) => ({ ...r, thumbnail: `=IMAGE("${r?.thumbnail}")` }))
 
-  const csvWriter = createCsvWriter({
+  const csvWriter = createObjectCsvWriter({
     path: 'out.csv',
     header: CsvHeaderConfig,
-  });
+  })
 
   csvWriter
     .writeRecords(mappedData)
-    .then(() => console.log('The CSV file was written successfully'));
-};
+    .then(() => console.log('The CSV file was written successfully'))
+}

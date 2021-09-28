@@ -5,7 +5,7 @@
   "main": "bin/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "style": "prettier --write --single-quote src/*.ts bin/index.js",
+    "style": "prettier --write --single-quote --no-semi src/*.ts bin/index.js",
     "start": "ts-node .",
     "update-data": "cp out.csv src/data.csv"
   },
