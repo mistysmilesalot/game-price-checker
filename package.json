@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "style": "prettier --write --single-quote --no-semi src/*.ts bin/index.js",
     "start": "ts-node .",
-    "update-data": "cp out.csv src/data.csv"
+    "update-data": "cp out.csv src/data.csv",
+    "update-desktop": "cp out.csv /mnt/c/Users/misty/OneDrive/Desktop/out.csv"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^16.9.6",
+    "request": "^2.88.2",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   }

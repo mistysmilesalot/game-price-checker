@@ -1,6 +1,7 @@
 import fs from 'fs'
-import SerpApi from 'google-search-results-nodejs'
 import { SerpApiResult, TableDataRow } from './serpapi-result-model'
+const SerpApi = require('google-search-results-nodejs')
+const request = require('request')
 
 const SERP_API_KEY =
   '715ab46631bc7b0405bae21506ae2028d556f6c70561f0efc8d32087e73776db'
@@ -30,12 +31,29 @@ const SerpApiResultToTableDataRow = (result: SerpApiResult): TableDataRow => {
   }
 }
 
-export default function scrapeData(query: string): Promise<TableDataRow> {
+const ScrapeDataFromApi = (query: string): Promise<TableDataRow> => {
   return new Promise((resolve) => {
     const result = new SerpApi.GoogleSearch(SERP_API_KEY)
     resolve(result.json({ ...params, q: query }, SerpApiResultToTableDataRow))
-
-    // let result = fs.readFileSync('src/test.json').toString()
-    // resolve(SerpApiResultToTableDataRow(JSON.parse(result)))
   })
 }
+
+const ScrapeDataFromFile = (file: string): Promise<TableDataRow> => {
+  return new Promise((resolve) => {
+    let result = fs.readFileSync('src/test.json').toString()
+    resolve(SerpApiResultToTableDataRow(JSON.parse(result)))
+  })
+}
+
+const ScrapeDataFromFileUrl = (url: string): Promise<TableDataRow> => {
+  return new Promise((resolve) => {
+    request(url, function (error: any, response: any, body: any) {
+      if (!error && response.statusCode == 200) {
+        var result = JSON.parse(body)
+        resolve(SerpApiResultToTableDataRow(result))
+      }
+    })
+  })
+}
+
+module.exports = {ScrapeDataFromApi, ScrapeDataFromFile, ScrapeDataFromFileUrl}

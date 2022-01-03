@@ -6,6 +6,7 @@ export interface SerpApiResult {
   shopping_results: ShoppingResult[]
   pagination: Pagination
   serpapi_pagination: SerpapiPagination
+  error?: string
 }
 
 export interface ShoppingResult {
@@ -75,7 +76,7 @@ interface SearchParameters {
 
 interface SearchMetadata {
   id: string
-  status: string
+  status: 'Processing' | 'Success' | 'Error'
   json_endpoint: string
   created_at: string
   processed_at: string

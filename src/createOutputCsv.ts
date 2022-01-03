@@ -9,6 +9,9 @@ const CsvHeaderConfig = [
   { id: 'price', title: 'Price' },
   { id: 'extracted_price', title: 'Extracted Price' },
   { id: 'thumbnail', title: 'Thumbnail' },
+  {id: 'snippet', title: 'Snippet'},
+  {id: 'rating', title: 'Rating'},
+  {id: 'reviews', title: 'Reviews'},
   { id: 'link', title: 'Link' },
 ]
 
